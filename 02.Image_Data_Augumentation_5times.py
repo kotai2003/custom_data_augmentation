@@ -60,7 +60,7 @@ def process_image(image, filename, rotations_count=5, jitterings_count=5):
 
 if __name__ == '__main__':
     # 入力ディレクトリと出力ディレクトリ
-    input_directory = './input_images'
+    input_directory = 'F:/DATASETS/02.finetheAi/Shinhan/SHP-3519/3d-curvature/train_v2/OK'
     output_directory = './output_images'
 
 
@@ -74,6 +74,6 @@ if __name__ == '__main__':
             filepath = os.path.join(input_directory, filename)
             img_origin = cv2.imread(filepath)
 
-            process_image(img_origin, filename, rotations_count=5, jitterings_count=5)  # ここで回転とジッタリングの回数を指定
+            process_image(img_origin, filename, rotations_count=5, jitterings_count=0)  # ここで回転とジッタリングの回数を指定
 
             print(f'Processed and saved: {filename}')
