@@ -60,7 +60,7 @@ def process_image(image, filename, rotations_count=5, jitterings_count=5):
 
 if __name__ == '__main__':
     # 入力ディレクトリと出力ディレクトリ
-    input_directory = 'F:/DATASETS/02.finetheAi/Shinhan/SHP-3519/3d-curvature/train_v2/OK'
+    input_directory = './input_images'
     output_directory = './output_images'
 
 
