@@ -59,7 +59,7 @@ for filename in os.listdir(input_directory):
 
         # 各変換を適用
 
-        rotated_image_cv = rotate_cv2(img_origin, random.randint(0, 360))
+        rotated_image_cv = rotate_cv2(img_origin, random.randint(0, 360)) #new function
         adjusted_image_cv = adjust_brightness_contrast_cv(img_origin, alpha=random.uniform(0.7, 1.3), beta=random.randint(-50, 50))
         jittered_image_cv = jittering_cv(img_origin)
 

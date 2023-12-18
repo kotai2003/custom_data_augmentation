@@ -15,6 +15,20 @@ def rotate_cv(image, angle):
     M = cv2.getRotationMatrix2D((width / 2, height / 2), angle, 1)
     return cv2.warpAffine(image, M, (width, height))
 
+def rotate_cv2(image, angle, border_value=(101,101,101)):
+    # 画像の高さと幅を取得
+    height, width = image.shape[:2]
+    # 回転の中心を画像の中心に設定
+    center = (width / 2, height / 2)
+
+    # 回転に必要な行列を計算
+    M = cv2.getRotationMatrix2D(center, angle, 1.0)
+    # 回転を適用し、borderValueで指定された色で端を埋める
+    rotated = cv2.warpAffine(image, M, (width, height), borderValue=border_value)
+
+    return rotated
+
+
 # 明るさとコントラストの調整
 def adjust_brightness_contrast_cv(image, alpha=1.0, beta=0):
     return cv2.convertScaleAbs(image, alpha=alpha, beta=beta)
@@ -43,7 +57,7 @@ def process_image(image, filename, rotations_count=5, jitterings_count=5):
 
     # 指定された回数の異なる回転と保存
     for i in range(rotations_count):
-        rotated_image_cv = rotate_cv(image, random.randint(-10, 10))
+        rotated_image_cv = rotate_cv2(image, random.randint(-10, 10)) #new function
         images_cv.append(rotated_image_cv)
         suffixes.append(f"_rotated_{i}")
 
