@@ -77,9 +77,9 @@ def process_image(image, filename, rotations_count=5, jitterings_count=5):
     # suffixes.append("_noisy")
 
     # 明るさとコントラストの調整と保存
-    adjusted_image_cv = adjust_brightness_contrast_cv(image, alpha=random.uniform(0.7, 1.3), beta=random.randint(-50, 50))
-    images_cv.append(adjusted_image_cv)
-    suffixes.append("_adjusted")
+    # adjusted_image_cv = adjust_brightness_contrast_cv(image, alpha=random.uniform(0.7, 1.3), beta=random.randint(-50, 50))
+    # images_cv.append(adjusted_image_cv)
+    # suffixes.append("_adjusted")
 
     # 指定された回数の異なる回転と保存
     for i in range(rotations_count):
@@ -90,11 +90,11 @@ def process_image(image, filename, rotations_count=5, jitterings_count=5):
         images_cv.append(rotated_image_cv)
         suffixes.append(f"_rotated_{i}")
 
-    # 指定された回数の異なるジッタリングと保存
-    for i in range(jitterings_count):
-        jittered_image_cv = jittering_cv(image,translation=20, scale=0)
-        images_cv.append(jittered_image_cv)
-        suffixes.append(f"_jittered_{i}")
+    # # 指定された回数の異なるジッタリングと保存
+    # for i in range(jitterings_count):
+    #     jittered_image_cv = jittering_cv(image,translation=20, scale=0)
+    #     images_cv.append(jittered_image_cv)
+    #     suffixes.append(f"_jittered_{i}")
 
     # すべての画像を保存
     for img, suffix in zip(images_cv, suffixes):
