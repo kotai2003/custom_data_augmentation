@@ -3,6 +3,29 @@ import numpy as np
 import random
 import os
 
+def get_scaled_pixel_color(image, scale_x, scale_y):
+    """
+    Returns the RGB color of the pixel at the scaled coordinates.
+
+    :param image: Numpy array of the image.
+    :param scale_x: Relative X-coordinate scale (0 to 1).
+    :param scale_y: Relative Y-coordinate scale (0 to 1).
+    :return: (R, G, B) tuple representing the color of the pixel.
+    """
+    # Calculate actual coordinates based on the image size and scale
+    x = int(image.shape[1] * scale_x)
+    y = int(image.shape[0] * scale_y)
+
+    # Check if coordinates are within the image dimensions
+    if x < 0 or y < 0 or x >= image.shape[1] or y >= image.shape[0]:
+        raise ValueError("Calculated coordinates are outside the image bounds.")
+
+    # Get the color (BGR format) and convert to RGB
+    color_bgr = image[y, x]
+    color_rgb = color_bgr[::-1]
+
+    return tuple(color_rgb)
+
 
 # ガウシアンノイズの追加
 def add_noise_cv(image, noise_level=0.05):
@@ -15,7 +38,10 @@ def rotate_cv(image, angle):
     M = cv2.getRotationMatrix2D((width / 2, height / 2), angle, 1)
     return cv2.warpAffine(image, M, (width, height))
 
-def rotate_cv2(image, angle, border_value=(101,101,101)):
+def rotate_cv2(image, angle, border_value):
+    # Explicitly cast each element to int
+    border_value = tuple(int(v) for v in border_value)
+
     # 画像の高さと幅を取得
     height, width = image.shape[:2]
     # 回転の中心を画像の中心に設定
@@ -57,7 +83,10 @@ def process_image(image, filename, rotations_count=5, jitterings_count=5):
 
     # 指定された回数の異なる回転と保存
     for i in range(rotations_count):
-        rotated_image_cv = rotate_cv2(image, random.randint(-10, 10)) #new function
+        pixel_result = get_scaled_pixel_color(image, scale_x=0.95, scale_y= 0.95)
+        print(pixel_result)
+        print(type(pixel_result))
+        rotated_image_cv = rotate_cv2(image=image, angle=random.randint(-10, 10), border_value=pixel_result) #new function
         images_cv.append(rotated_image_cv)
         suffixes.append(f"_rotated_{i}")
 

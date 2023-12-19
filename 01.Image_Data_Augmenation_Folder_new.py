@@ -2,7 +2,28 @@ import cv2
 import numpy as np
 import random
 import os
+def get_scaled_pixel_color(image, scale_x, scale_y):
+    """
+    Returns the RGB color of the pixel at the scaled coordinates.
 
+    :param image: Numpy array of the image.
+    :param scale_x: Relative X-coordinate scale (0 to 1).
+    :param scale_y: Relative Y-coordinate scale (0 to 1).
+    :return: (R, G, B) tuple representing the color of the pixel.
+    """
+    # Calculate actual coordinates based on the image size and scale
+    x = int(image.shape[1] * scale_x)
+    y = int(image.shape[0] * scale_y)
+
+    # Check if coordinates are within the image dimensions
+    if x < 0 or y < 0 or x >= image.shape[1] or y >= image.shape[0]:
+        raise ValueError("Calculated coordinates are outside the image bounds.")
+
+    # Get the color (BGR format) and convert to RGB
+    color_bgr = image[y, x]
+    color_rgb = color_bgr[::-1]
+
+    return tuple(color_rgb)
 
 # ガウシアンノイズの追加
 def add_noise_cv(image, noise_level=0.05):
