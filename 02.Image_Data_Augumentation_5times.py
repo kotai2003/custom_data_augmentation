@@ -86,7 +86,7 @@ def process_image(image, filename, rotations_count=5, jitterings_count=5):
         pixel_result = get_scaled_pixel_color(image, scale_x=0.95, scale_y= 0.95)
         print(pixel_result)
         print(type(pixel_result))
-        rotated_image_cv = rotate_cv2(image=image, angle=random.randint(-10, 10), border_value=pixel_result) #new function
+        rotated_image_cv = rotate_cv2(image=image, angle=random.randint(-180, 180), border_value=pixel_result) #new function -180, 180
         images_cv.append(rotated_image_cv)
         suffixes.append(f"_rotated_{i}")
 
@@ -117,6 +117,6 @@ if __name__ == '__main__':
             filepath = os.path.join(input_directory, filename)
             img_origin = cv2.imread(filepath)
 
-            process_image(img_origin, filename, rotations_count=5, jitterings_count=0)  # ここで回転とジッタリングの回数を指定
+            process_image(img_origin, filename, rotations_count=15, jitterings_count=0)  # ここで回転とジッタリングの回数を指定
 
             print(f'Processed and saved: {filename}')
